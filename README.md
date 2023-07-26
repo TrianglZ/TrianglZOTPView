@@ -2,7 +2,7 @@
 ---
  **TrianglZOTPView** is a user interface component designed to capture and display One-Time Passwords (OTP) in various applications, especially during the process of user authentication and verification. It is commonly used in mobile apps to securely verify a user's identity.
  
-## RoadMap
+## Roadmap
 
 - [ ] Initialize OTP View with `n` digits.
 - [ ] Style:
