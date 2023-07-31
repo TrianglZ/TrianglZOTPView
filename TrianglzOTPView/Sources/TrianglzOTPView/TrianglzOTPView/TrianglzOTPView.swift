@@ -7,13 +7,20 @@ public struct TrianglzOTPView: View {
 
     // MARK: - State Variables
     @State internal var data: [String] = []
-    
+    @State internal var internalData: [String] = []
+    @State internal var allAfterSpecificIndexEmpty: Bool = true
+    @State internal var previousIndex: Int = 0
+    @State internal var lastIndex: Int = 0
+
+    // MARK: - FocusedState Variables
+    @FocusState internal var focusedTextField: Int?
+
     // MARK: - Style Variables
     internal var customStyle: CustomStyle
-    
+
     // MARK: - Binding Variables
     @Binding internal var isAllDataEntered: Bool
-    
+
     // MARK: - Callback Closures
     internal var onChangeCallback: (() -> Void)?
     internal var onCompleteCallback: ((String) -> Void)
@@ -39,18 +46,16 @@ public struct TrianglzOTPView: View {
                         .textFieldStyle(CustomTextFieldStyle(customStyle: customStyle))
                         .keyboardType(.asciiCapableNumberPad)
                         .multilineTextAlignment(.center)
+                        .focused($focusedTextField, equals: index)
                         .onChange(of: data[index]) { newValue in
-                            onChangeCallback?()
-
-                            // check if all textFields are filled to return the string
-                            isAllDataEntered = data.filter({ !$0.isEmpty }).count == textFieldCount
-                            if isAllDataEntered {
-                                onCompleteCallback(data.joined(separator: ""))
-                            }
+                            previousIndex = max(index - 1, 0)
+                            lastIndex = internalData.lastIndex(where: { !$0.isEmpty }) ?? 0
+                            handleOnChangeAction(index: index, newValue: newValue)
                         }
                 }
             }.onAppear {
                 data = Array(repeating: "", count: textFieldCount)
+                internalData = data
             }
         }
     }
