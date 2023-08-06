@@ -10,13 +10,11 @@ final class TrianglzOTPViewTests: XCTestCase {
 //        XCTAssertEqual(TrianglzOTPView().text, "Hello, World!")
         
         var otpValue: String = ""
-        let isAllDataEnteredBinding = Binding<Bool>.constant(false)
 
         let view = TrianglzOTPView(textFieldCount: 4,
-                                   customStyle: CustomStyle(foregroundColor: .blue,
+                                   customStyle: TrianglzOTPView.CustomStyle(foregroundColor: .blue,
                                                             fontStyle: .largeTitle,
                                                             vstackSpacing: 10),
-                                   isAllDataEntered: isAllDataEnteredBinding,
                                    onCompleteCallback: { otp in
                                        otpValue = otp
                                        debugPrint(otpValue, "value received")
@@ -33,7 +31,7 @@ final class TrianglzOTPViewTests: XCTestCase {
         for index in 0..<view.textFieldCount {
             let textField = view.data.indices[index]
             view.data[textField] = "\(index + 1)"
-            view.onChangeCallback?()
+            view.onChangeCallback?(view.data[index])
         }
     }
 }

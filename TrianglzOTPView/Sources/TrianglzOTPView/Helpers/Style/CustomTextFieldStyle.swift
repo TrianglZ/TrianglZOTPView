@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 public struct CustomTextFieldStyle: TextFieldStyle {
-    var customStyle: CustomStyle
+    var customStyle: TrianglzOTPView.CustomStyle
 
     public func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
