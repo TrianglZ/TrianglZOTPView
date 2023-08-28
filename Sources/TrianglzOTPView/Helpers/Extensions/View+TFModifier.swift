@@ -28,5 +28,6 @@ extension View {
             )
             .focused(focusedTextField, equals: index)
             .lineLimit(1)
+            .accentColor(customStyle.isCursorHidden ? .clear : customStyle.foregroundColor)
     }
 }

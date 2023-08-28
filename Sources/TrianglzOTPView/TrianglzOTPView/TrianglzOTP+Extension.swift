@@ -48,12 +48,13 @@ extension TrianglzOTPView {
     }
 
     func getFocusedTextField() -> Int {
-        let isAllFilledExceptLast = data.dropLast().allSatisfy { !$0.isEmpty } && data.last?.isEmpty == true
-
-        if isAllFilledExceptLast {
-            return lastIndex + 1
+        let allDataIsFull = data.allSatisfy { !$0.isEmpty }
+        let allDataIsEmpty = data.allSatisfy { $0.isEmpty }
+        
+        if allDataIsEmpty || allDataIsFull {
+            return allDataIsEmpty ? 0 : lastIndex
         } else {
-           return lastIndex
+            return lastIndex + 1
         }
     }
 
