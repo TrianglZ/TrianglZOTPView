@@ -7,7 +7,6 @@ final class TrianglzOTPViewTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-//        XCTAssertEqual(TrianglzOTPView().text, "Hello, World!")
         
         func testDismissKeyboard() {
             // Create a binding for shouldDismissKeyboard
@@ -16,7 +15,7 @@ final class TrianglzOTPViewTests: XCTestCase {
             // Create an instance of OTPMainView with the binding
             let otpMainView = TrianglzOTPView(
                 textFieldCount: 6,
-                customStyle: TrianglzOTPView.CustomStyle(foregroundColor: .blue,
+                customStyle: TrianglzOTPView.Style(foregroundColor: .blue,
                                          fontStyle: .systemFont(ofSize: 18),
                                          hstackSpacing: 10,
                                          borderColor: .blue),

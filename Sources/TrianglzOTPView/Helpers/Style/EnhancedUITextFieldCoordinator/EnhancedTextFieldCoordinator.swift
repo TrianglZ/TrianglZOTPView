@@ -1,8 +1,6 @@
 //
-//  File.swift
-//  
+//  EnhancedTextFieldCoordinator.swift
 //
-//  Created by Nour Gweda on 28/08/2023.
 //
 
 import Foundation

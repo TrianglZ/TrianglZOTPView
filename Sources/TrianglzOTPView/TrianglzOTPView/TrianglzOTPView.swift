@@ -1,3 +1,8 @@
+//
+//  TrianglzOTPView.swift
+//
+//
+
 import SwiftUI
 
 public struct TrianglzOTPView: View {
@@ -12,7 +17,7 @@ public struct TrianglzOTPView: View {
     @State private var isViewAppeared: Bool = false
 
     // MARK: - Style Variables
-    internal var customStyle: CustomStyle
+    internal var customStyle: Style
 
     // MARK: - Callback Closures
     internal var onChangeCallback: ((String) -> Void)?
@@ -22,7 +27,7 @@ public struct TrianglzOTPView: View {
     @Binding var shouldDismissKeyboard: Bool
         
         public init(textFieldCount: Int,
-                    customStyle: CustomStyle,
+                    customStyle: Style,
                     onChangeCallback: ((String) -> Void)? = nil,
                     onCompleteCallback: @escaping ((String) -> Void),
                     shouldDismissKeyboard: Binding<Bool>) {
@@ -58,9 +63,6 @@ public struct TrianglzOTPView: View {
         }
         .onTapGesture {
             focusedTextField = getFocusedTextField()
-        }
-        .onTapGesture(count: 2) {
-            focusedTextField = data.firstIndex(where: { $0.isEmpty }) ?? (data.count - 1)
         }.onChange(of: shouldDismissKeyboard, perform: { newValue in
             if newValue {
                 focusedTextField = nil

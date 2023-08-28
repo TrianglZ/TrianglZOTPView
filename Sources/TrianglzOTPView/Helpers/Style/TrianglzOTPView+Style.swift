@@ -1,15 +1,13 @@
 //
-//  File.swift
+//  TrianglzOTPView+Style.swift
 //  
-//
-//  Created by Nour Gweda on 27/07/2023.
 //
 
 import Foundation
 import SwiftUI
 
 public extension TrianglzOTPView {
-     struct CustomStyle {
+     struct Style {
         var foregroundColor: Color
         var fontStyle: UIFont
         var hstackSpacing: CGFloat

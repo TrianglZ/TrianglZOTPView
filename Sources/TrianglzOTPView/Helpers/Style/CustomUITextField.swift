@@ -1,8 +1,6 @@
 //
-//  File.swift
-//  
+//  CustomUITextField.swift
 //
-//  Created by Nour Gweda on 27/07/2023.
 //
 
 import Foundation

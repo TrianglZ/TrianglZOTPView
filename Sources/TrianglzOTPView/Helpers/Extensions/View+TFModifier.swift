@@ -1,15 +1,13 @@
 //
-//  File.swift
+//  View+TFModifier.swift
 //  
-//
-//  Created by Nour Gweda on 28/08/2023.
 //
 
 import Foundation
 import SwiftUI
 
 extension View {
-    func customTextFieldModifier(customStyle: TrianglzOTPView.CustomStyle,
+    func customTextFieldModifier(customStyle: TrianglzOTPView.Style,
                                  index: Int,
                                  focusedTextField: FocusState<Int?>.Binding) -> some View {
         self

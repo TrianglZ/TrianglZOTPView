@@ -1,8 +1,6 @@
 //
-//  File.swift
+//  TrianglzOTP+Extension.swift
 //  
-//
-//  Created by Nour Gweda on 31/07/2023.
 //
 
 import Foundation
