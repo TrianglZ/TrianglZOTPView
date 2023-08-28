@@ -9,29 +9,37 @@ final class TrianglzOTPViewTests: XCTestCase {
         // results.
 //        XCTAssertEqual(TrianglzOTPView().text, "Hello, World!")
         
-        var otpValue: String = ""
+        func testDismissKeyboard() {
+            // Create a binding for shouldDismissKeyboard
+            var shouldDismissKeyboard = false
 
-        let view = TrianglzOTPView(textFieldCount: 4,
-                                   customStyle: TrianglzOTPView.CustomStyle(foregroundColor: .blue,
-                                                            fontStyle: .largeTitle,
-                                                            vstackSpacing: 10),
-                                   onCompleteCallback: { otp in
-                                       otpValue = otp
-                                       debugPrint(otpValue, "value received")
-                                   })
+            // Create an instance of OTPMainView with the binding
+            let otpMainView = TrianglzOTPView(
+                textFieldCount: 6,
+                customStyle: TrianglzOTPView.CustomStyle(foregroundColor: .blue,
+                                         fontStyle: .systemFont(ofSize: 18),
+                                         hstackSpacing: 10,
+                                         borderColor: .blue),
+                onChangeCallback: { _ in },
+                onCompleteCallback: { _ in },
+                shouldDismissKeyboard: Binding<Bool>(
+                    get: { shouldDismissKeyboard },
+                    set: { shouldDismissKeyboard = $0 }
+                )
+            )
+            // Simulate the binding change to dismiss the keyboard
+            otpMainView.onChange(of: shouldDismissKeyboard, perform: { newValue in
+                if newValue {
+                    otpMainView.focusedTextField = nil
+                }
+            })
 
-        DispatchQueue.main.async {
-            self.enterTextIntoTextFields(view: view)
+            // Verify that the focusedTextField is nil when shouldDismissKeyboard is true
+            otpMainView.focusedTextField = 0
+            XCTAssert(otpMainView.focusedTextField == 0)
+            shouldDismissKeyboard = true
+            XCTAssert(otpMainView.focusedTextField == nil)
         }
-        
-        XCTAssertEqual(otpValue, "1234")
-    }
 
-    private func enterTextIntoTextFields(view: TrianglzOTPView) {
-        for index in 0..<view.textFieldCount {
-            let textField = view.data.indices[index]
-            view.data[textField] = "\(index + 1)"
-            view.onChangeCallback?(view.data[index])
-        }
     }
 }

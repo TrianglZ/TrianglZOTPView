@@ -1,18 +1,15 @@
 import SwiftUI
 
 public struct TrianglzOTPView: View {
-
+    
     // MARK: - Data Variables
     internal var textFieldCount: Int
     @State internal var data: [String] = []
-    @State internal var internalData: [String] = []
-    @State internal var allAfterSpecificIndexEmpty: Bool = true
     @FocusState internal var focusedTextField: Int?
 
     // MARK: - Internal State Variables
-    @State internal var previousIndex: Int = 0
     @State internal var lastIndex: Int = 0
-    @State internal var firstIndex: Int = 0
+    @State private var isViewAppeared: Bool = false
 
     // MARK: - Style Variables
     internal var customStyle: CustomStyle
@@ -21,44 +18,56 @@ public struct TrianglzOTPView: View {
     internal var onChangeCallback: ((String) -> Void)?
     internal var onCompleteCallback: ((String) -> Void)
 
-    public init(textFieldCount: Int,
-                customStyle: CustomStyle,
-                onChangeCallback: ((String) -> Void)? = nil,
-                onCompleteCallback: @escaping ((String) -> Void)) {
-        self.textFieldCount = textFieldCount
-        self.customStyle = customStyle
-        self.onChangeCallback = onChangeCallback
-        self.onCompleteCallback = onCompleteCallback
-    }
-
+    // MARK: - Binding Variables
+    @Binding var shouldDismissKeyboard: Bool
+        
+        public init(textFieldCount: Int,
+                    customStyle: CustomStyle,
+                    onChangeCallback: ((String) -> Void)? = nil,
+                    onCompleteCallback: @escaping ((String) -> Void),
+                    shouldDismissKeyboard: Binding<Bool>) {
+            self.textFieldCount = textFieldCount
+            self.customStyle = customStyle
+            self.onChangeCallback = onChangeCallback
+            self.onCompleteCallback = onCompleteCallback
+            _shouldDismissKeyboard = shouldDismissKeyboard
+        }
+    
     public var body: some View {
-        HStack(alignment: customStyle.vstackAlignment,
-               spacing: customStyle.vstackSpacing) {
-            ForEach(data.indices, id: \.self) { item in
+        HStack(alignment: customStyle.hstackAlignment,
+               spacing: customStyle.hstackSpacing) {
+            ForEach(data.indices, id: \.self) { index in
 
-                TextField("", text: $data[item])
-                    .textFieldStyle(CustomTextFieldStyle(customStyle: customStyle))
-                    .keyboardType(.asciiCapableNumberPad)
-                    .multilineTextAlignment(.center)
-                    .focused($focusedTextField, equals: item)
-                    .onChange(of: data[item]) { newValue in
-                        previousIndex = max(item - 1, 0)
-                        lastIndex = internalData.lastIndex(where: { !$0.isEmpty }) ?? 0
-                        handleOnChangeAction(index: item, newValue: newValue)
-                    }
+                EnhancedTextField(data: $data,
+                                  currentIndex: .constant(index),
+                                  text: $data[index],
+                                  font: customStyle.fontStyle,
+                                  fontColor: UIColor(customStyle.foregroundColor),
+                  onBackspace: { isEmpty in
+                    handleOnBackAction(isEmpty: isEmpty, index: index)
+                },onChange: { newValue in
+                    handleOnChangeAction()
+                })
+                .customTextFieldModifier(customStyle: customStyle, index: index, focusedTextField: $focusedTextField)
             }
-        }.onAppear {
-            data = Array(repeating: "", count: textFieldCount)
-            internalData = data
-        }.onTapGesture {
-            setUpFocusTextFieldValue()
+        } .onAppear {
+            if !isViewAppeared {
+                setUpData()
+                isViewAppeared.toggle()
+            }
+        }
+        .onTapGesture {
+            focusedTextField = getFocusedTextField()
         }
         .onTapGesture(count: 2) {
-            setUpFocusTextFieldValue()
-        }
-        .onChange(of: focusedTextField) { newValue in
+            focusedTextField = data.firstIndex(where: { $0.isEmpty }) ?? (data.count - 1)
+        }.onChange(of: shouldDismissKeyboard, perform: { newValue in
+            if newValue {
+                focusedTextField = nil
+            }
+        }).onChange(of: focusedTextField) { newValue in
             guard let newValue else { return }
-            handleFocusValueChange(newValue: newValue)
+            handleOnChangeFocus(newValue: newValue)
         }
     }
 }
