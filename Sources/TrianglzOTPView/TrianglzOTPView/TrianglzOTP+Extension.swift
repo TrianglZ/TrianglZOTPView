@@ -46,14 +46,17 @@ extension TrianglzOTPView {
     }
 
     func getFocusedTextField() -> Int {
-        let allDataIsFull = data.allSatisfy { !$0.isEmpty }
         let allDataIsEmpty = data.allSatisfy { $0.isEmpty }
         
-        if allDataIsEmpty || allDataIsFull {
+        if allDataIsEmpty || isAllDataFull() {
             return allDataIsEmpty ? 0 : lastIndex
         } else {
             return lastIndex + 1
         }
+    }
+
+    func isAllDataFull() -> Bool {
+        return data.allSatisfy { !$0.isEmpty }
     }
 
     func handleOnChangeFocus(newValue: Int) {

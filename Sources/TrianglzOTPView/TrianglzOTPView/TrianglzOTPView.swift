@@ -70,6 +70,11 @@ public struct TrianglzOTPView: View {
         }).onChange(of: focusedTextField) { newValue in
             guard let newValue else { return }
             handleOnChangeFocus(newValue: newValue)
-        }
+        }.onChange(of: data, perform: { newValue in
+            if isAllDataFull() {
+                lastIndex = data.endIndex
+                focusedTextField = nil
+            }
+        })
     }
 }
