@@ -28,6 +28,8 @@ extension TrianglzOTPView {
             foregroundColor = .black
             fontStyle = .systemFont(ofSize: 15)
             hstackSpacing = 8
+            borderColor = .gray
+            backgroundColor = .white
         }
 
         public init(foregroundColor: Color,
