@@ -6,8 +6,8 @@
 import Foundation
 import SwiftUI
 
-public extension TrianglzOTPView {
-     struct Style {
+extension TrianglzOTPView {
+   public struct Style {
         var foregroundColor: Color
         var fontStyle: UIFont
         var hstackSpacing: CGFloat
