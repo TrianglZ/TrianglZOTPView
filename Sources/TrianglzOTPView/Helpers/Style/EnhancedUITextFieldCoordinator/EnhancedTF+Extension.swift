@@ -12,7 +12,7 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
                    replacementString string: String) -> Bool {
         let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
 
-        setUserDefaultsData(newText: newText)
+        setInternalData(newText: newText)
 
         if getNonEmptyCount(array: internalData) == data.count {
                 debugPrint("Saved Array: \(internalData)")
@@ -37,7 +37,7 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
         }
     }
 
-    func setUserDefaultsData(newText: String) {
+    func setInternalData(newText: String) {
         if newText.count == 1 {
             internalData.append(String(newText))
             internalData.removeAll { $0.isEmpty }
