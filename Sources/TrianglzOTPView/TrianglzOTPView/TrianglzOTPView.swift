@@ -71,8 +71,10 @@ public struct TrianglzOTPView: View {
             guard let newValue else { return }
             handleOnChangeFocus(newValue: newValue)
         }.onChange(of: data, perform: { newValue in
+            onChangeCallback?(data.joined(separator: ""))
             if isAllDataFull() {
                 lastIndex = data.endIndex
+                handleOnCompleteAction()
                 focusedTextField = nil
             }
         })

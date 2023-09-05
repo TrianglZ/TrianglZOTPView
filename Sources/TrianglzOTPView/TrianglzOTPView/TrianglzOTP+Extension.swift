@@ -40,7 +40,7 @@ extension TrianglzOTPView {
         focusedTextField = nextIndex
     }
 
-    private func handleOnCompleteAction() {
+    func handleOnCompleteAction() {
         if data.filter({ !$0.isEmpty }).count == textFieldCount {
             onCompleteCallback(data.joined(separator: ""))
         }
