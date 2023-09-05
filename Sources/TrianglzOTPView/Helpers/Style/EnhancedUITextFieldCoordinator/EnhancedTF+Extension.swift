@@ -13,17 +13,13 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
         let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
 
         setUserDefaultsData(newText: newText)
-        if let savedArray = UserDefaults.standard.stringArray(forKey: Constants.internalData) {
-            if getNonEmptyCount(array: savedArray) == data.count {
-                debugPrint("Saved Array: \(savedArray)")
-                data.wrappedValue = savedArray
-                let emptyArray: [String] = []
-                UserDefaults.standard.set(emptyArray, forKey: Constants.internalData)
+
+        if getNonEmptyCount(array: internalData) == data.count {
+                debugPrint("Saved Array: \(internalData)")
+                data.wrappedValue = internalData
+                internalData = []
                 return true
             }
-        } else {
-            debugPrint("Array not found in UserDefaults.")
-        }
 
         if !newText.isEmpty && (newText.count == 1) && areElementsNotEmpty() {
             textBinding.wrappedValue = String(newText.prefix(1))
@@ -42,13 +38,9 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
     }
 
     func setUserDefaultsData(newText: String) {
-        var stringArray = UserDefaults.standard.stringArray(forKey: Constants.internalData) ?? []
-
         if newText.count == 1 {
-            stringArray.append(String(newText))
-            stringArray.removeAll { $0.isEmpty }
-
-            UserDefaults.standard.set(stringArray, forKey: Constants.internalData)
+            internalData.append(String(newText))
+            internalData.removeAll { $0.isEmpty }
         }
     }
 

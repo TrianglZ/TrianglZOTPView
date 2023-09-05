@@ -10,6 +10,7 @@ public struct TrianglzOTPView: View {
     // MARK: - Data Variables
     internal var textFieldCount: Int
     @State internal var data: [String] = []
+    @State internal var internalData: [String] = []
     @FocusState internal var focusedTextField: Int?
 
     // MARK: - Internal State Variables
@@ -46,6 +47,7 @@ public struct TrianglzOTPView: View {
                 EnhancedTextField(data: $data,
                                   currentIndex: .constant(index),
                                   text: $data[index],
+                                  internalData: internalData,
                                   font: customStyle.fontStyle,
                                   fontColor: UIColor(customStyle.foregroundColor),
                   onBackspace: { isEmpty in
