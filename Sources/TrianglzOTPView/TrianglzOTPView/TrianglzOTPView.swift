@@ -55,7 +55,8 @@ public struct TrianglzOTPView: View {
                 })
                 .customTextFieldModifier(customStyle: customStyle, index: index, focusedTextField: $focusedTextField)
             }
-        } .onAppear {
+        }.environment(\.layoutDirection, .leftToRight)
+         .onAppear {
             if !isViewAppeared {
                 setUpData()
                 isViewAppeared.toggle()
