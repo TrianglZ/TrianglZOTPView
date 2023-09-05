@@ -31,6 +31,7 @@ extension TrianglzOTPView {
     func handleOnChangeAction() {
         lastIndex = data.lastIndex(where: { !$0.isEmpty }) ?? 0
         focusNextTextField(currentIndex: lastIndex)
+        onChangeCallback?(data.joined(separator: ""))
         handleOnCompleteAction()
     }
 
