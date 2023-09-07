@@ -1,5 +1,5 @@
 //
-//  CustomUITextField.swift
+//  EnhancedTextField.swift
 //
 //
 
@@ -10,7 +10,7 @@ struct EnhancedTextField: UIViewRepresentable {
     @Binding var data: [String]
     @Binding var currentIndex: Int
     @Binding var text: String
-    var internalData: [String]
+//    var internalData: [String] = []
     let font: UIFont
     let fontColor: UIColor
     let onBackspace: (Bool) -> Void
@@ -19,7 +19,7 @@ struct EnhancedTextField: UIViewRepresentable {
     func makeCoordinator() -> EnhancedTextFieldCoordinator {
         EnhancedTextFieldCoordinator(textBinding: $text, onChange: onChange,
                                      data: $data,
-                                     internalData: internalData,
+//                                     internalData: internalData,
                                      currentIndex: $currentIndex)
     }
 
