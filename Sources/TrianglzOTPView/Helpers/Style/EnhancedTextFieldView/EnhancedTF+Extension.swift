@@ -12,6 +12,8 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
                    replacementString string: String) -> Bool {
         let newText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? ""
 
+        // This internal array is primarily intended for storing values received via SMS, as they arrive one by one, necessitating a dedicated storage location
+
         setInternalData(newText: newText)
 
         if getNonEmptyCount(array: internalData) == data.count {
@@ -45,13 +47,7 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
     }
 
     func getNonEmptyCount(array: [String]) -> Int {
-        var nonEmptyCount = 0
-        for item in array {
-            if !item.isEmpty {
-                nonEmptyCount += 1
-            }
-        }
-        return nonEmptyCount
+        return array.filter({!$0.isEmpty}).count
     }
 
     func areElementsNotEmpty() -> Bool {
