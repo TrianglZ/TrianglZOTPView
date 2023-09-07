@@ -15,12 +15,10 @@ class EnhancedTextFieldCoordinator: NSObject {
 
     init(textBinding: Binding<String>, onChange: @escaping (String) -> Void,
          data: Binding<[String]>,
-//         internalData: [String],
          currentIndex: Binding<Int>) {
         self.textBinding = textBinding
         self.onChange = onChange
         self.data = data
-//        self.internalData = internalData
         self.currentIndex = currentIndex
     }
 }
