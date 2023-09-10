@@ -38,7 +38,7 @@ final class TrianglzOTPViewTests: XCTestCase {
                 )
             )
             // Simulate the binding change to dismiss the keyboard
-            otpMainView.onChange(of: shouldDismissKeyboard, perform: { newValue in
+            _ = otpMainView.onChange(of: shouldDismissKeyboard, perform: { newValue in
                 if newValue {
                     otpMainView.focusedTextField = nil
                 }
