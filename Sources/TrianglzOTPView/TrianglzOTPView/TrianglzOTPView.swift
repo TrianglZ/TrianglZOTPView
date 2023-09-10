@@ -9,11 +9,11 @@ public struct TrianglzOTPView: View {
     
     // MARK: - Data Variables
     var textFieldCount: Int
-    @State private var data: [String] = []
+    @State var data: [String] = []
     @FocusState var focusedTextField: Int?
 
     // MARK: - State Variables
-    @State private var lastIndex: Int = 0
+    @State var lastIndex: Int = 0
     @State private var isViewAppeared: Bool = false
 
     // MARK: - Style Variables
