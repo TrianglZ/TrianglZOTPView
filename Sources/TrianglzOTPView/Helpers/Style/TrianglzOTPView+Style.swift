@@ -35,18 +35,18 @@ extension TrianglzOTPView {
         public init(foregroundColor: Color,
                     fontStyle: UIFont,
                     hstackSpacing: CGFloat,
-                    hstackAlignment: VerticalAlignment,
-                    borderColor: Color,
-                    width: CGFloat,
-                    height: CGFloat,
-                    backgroundColor: Color,
-                    cornerRadius: CGFloat,
-                    borderWidth: CGFloat,
-                    shadowColor: Color,
-                    shadowRadius: CGFloat,
-                    shadowXOffset: CGFloat,
-                    shadowYOffset: CGFloat,
-                    isCursorHidden: Bool) {
+                    hstackAlignment: VerticalAlignment = .center,
+                    borderColor: Color = .clear,
+                    width: CGFloat = 50,
+                    height: CGFloat = 50,
+                    backgroundColor: Color = .clear,
+                    cornerRadius: CGFloat = 10,
+                    borderWidth: CGFloat = 1,
+                    shadowColor: Color = .clear,
+                    shadowRadius: CGFloat = 0,
+                    shadowXOffset: CGFloat = 0,
+                    shadowYOffset: CGFloat = 0,
+                    isCursorHidden: Bool = false) {
             self.foregroundColor = foregroundColor
             self.fontStyle = fontStyle
             self.hstackSpacing = hstackSpacing
