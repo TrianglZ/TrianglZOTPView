@@ -16,12 +16,10 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
 
         setInternalData(newText: newText)
 
-        if getNonEmptyCount(array: internalData) == data.count {
-                debugPrint("Saved Array: \(internalData)")
-                data.wrappedValue = internalData
-                internalData = []
+        if getNonEmptyCount(array: internalData.wrappedValue) == data.count {
+                data.wrappedValue = internalData.wrappedValue
                 return true
-            }
+        }
 
         if !newText.isEmpty && (newText.count == 1) && areElementsNotEmpty() {
             textBinding.wrappedValue = String(newText.prefix(1))
@@ -40,9 +38,8 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
     }
 
     func setInternalData(newText: String) {
-        if newText.count == 1 {
-            internalData.append(String(newText))
-            internalData.removeAll { $0.isEmpty }
+        if !newText.isEmpty && newText.count == 1 {
+            internalData.wrappedValue.append(newText)
         }
     }
 

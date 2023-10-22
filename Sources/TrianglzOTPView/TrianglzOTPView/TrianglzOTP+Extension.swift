@@ -12,6 +12,17 @@ extension TrianglzOTPView {
     }
 
     func handleOnBackAction(isEmpty: Bool, index: Int) {
+        // I've introduced an additional validation check to safeguard centered text fields from inadvertent deletions or edits, particularly in cases where double checks occur out of sequence.
+        lastIndex = data.lastIndex(where: { !$0.isEmpty }) ?? (data.isEmpty ? 0 : (data.count - 1))
+
+        if index == lastIndex {
+            handleOnBackActionData(isEmpty: isEmpty, index: index)
+            handleOnBackActionInternalData(index: index)
+            focusPreviousTextField(currentIndex: index)
+        }
+    }
+
+    private func handleOnBackActionData(isEmpty: Bool, index: Int) {
         // The first condition handles the case where the user is in the first index and that index is empty to prevent exceptions. The second condition, in regular cases, deletes the value inside any non-empty index.
         if (index == data.startIndex && data[index].isEmpty) || !isEmpty {
             data[index] = ""
@@ -21,7 +32,14 @@ extension TrianglzOTPView {
                 data[index - 1] = ""
             }
         }
-        focusPreviousTextField(currentIndex: index)
+    }
+
+    private func handleOnBackActionInternalData(index: Int) {
+        if !internalData.isEmpty {
+            internalData.removeLast()
+        } else if index == 0 {
+            internalData = []
+        }
     }
 
     private func focusPreviousTextField(currentIndex: Int) {
