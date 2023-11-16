@@ -8,7 +8,7 @@ import Foundation
 extension TrianglzOTPView {
 
     func setUpData() {
-        data = Array(repeating: "", count: textFieldCount)
+        data = textFieldCount > 0 ? Array(repeating: "", count: textFieldCount) : []
     }
 
     func handleOnBackAction(isEmpty: Bool, index: Int) {
