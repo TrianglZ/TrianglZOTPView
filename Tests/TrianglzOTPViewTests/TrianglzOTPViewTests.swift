@@ -15,10 +15,21 @@ final class TrianglzOTPViewTests: XCTestCase {
             // Create an instance of OTPMainView with the binding
             let otpMainView = TrianglzOTPView(
                 textFieldCount: 6,
-                customStyle: TrianglzOTPView.Style(foregroundColor: .blue,
-                                         fontStyle: .systemFont(ofSize: 18),
-                                         hstackSpacing: 10,
-                                         borderColor: .blue),
+                customStyle: TrianglzOTPView.Style(foregroundColor: .gray,
+                                                   fontStyle: .systemFont(ofSize: 18),
+                                                   hstackSpacing: 10,
+                                                   hstackAlignment: .center,
+                                                   borderColor: .gray,
+                                                   width: 50,
+                                                   height: 50,
+                                                   backgroundColor: .clear,
+                                                   cornerRadius: 10,
+                                                   borderWidth: 1,
+                                                   shadowColor: .clear,
+                                                   shadowRadius: 0,
+                                                   shadowXOffset: 0,
+                                                   shadowYOffset: 0,
+                                                   isCursorHidden: true),
                 onChangeCallback: { _ in },
                 onCompleteCallback: { _ in },
                 shouldDismissKeyboard: Binding<Bool>(
@@ -27,7 +38,7 @@ final class TrianglzOTPViewTests: XCTestCase {
                 )
             )
             // Simulate the binding change to dismiss the keyboard
-            otpMainView.onChange(of: shouldDismissKeyboard, perform: { newValue in
+            _ = otpMainView.onChange(of: shouldDismissKeyboard, perform: { newValue in
                 if newValue {
                     otpMainView.focusedTextField = nil
                 }

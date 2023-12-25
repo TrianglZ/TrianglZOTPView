@@ -14,8 +14,11 @@ extension View {
             .frame(width: customStyle.width, height: customStyle.height)
             .background(
                 RoundedRectangle(cornerRadius: customStyle.cornerRadius)
-                    .stroke(customStyle.borderColor, lineWidth: customStyle.borderWidth)
                     .foregroundColor(customStyle.backgroundColor)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: customStyle.cornerRadius)
+                            .stroke(customStyle.borderColor, lineWidth: customStyle.borderWidth)
+                    )
             )
             .foregroundColor(customStyle.foregroundColor)
             .shadow(

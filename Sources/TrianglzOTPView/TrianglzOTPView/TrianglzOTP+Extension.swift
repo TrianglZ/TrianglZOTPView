@@ -9,14 +9,15 @@ extension TrianglzOTPView {
 
     func setUpData() {
         data = Array(repeating: "", count: textFieldCount)
-        lastIndex = data.lastIndex(where: { !$0.isEmpty }) ?? 0
     }
 
     func handleOnBackAction(isEmpty: Bool, index: Int) {
+        // The first condition handles the case where the user is in the first index and that index is empty to prevent exceptions. The second condition, in regular cases, deletes the value inside any non-empty index.
         if (index == data.startIndex && data[index].isEmpty) || !isEmpty {
             data[index] = ""
         } else {
             if isEmpty {
+        // "If the selected index is empty, proceed to delete the preceding index."
                 data[index - 1] = ""
             }
         }
@@ -31,6 +32,7 @@ extension TrianglzOTPView {
     func handleOnChangeAction() {
         lastIndex = data.lastIndex(where: { !$0.isEmpty }) ?? 0
         focusNextTextField(currentIndex: lastIndex)
+        onChangeCallback?(data.joined(separator: ""))
         handleOnCompleteAction()
     }
 
@@ -39,7 +41,7 @@ extension TrianglzOTPView {
         focusedTextField = nextIndex
     }
 
-    private func handleOnCompleteAction() {
+    func handleOnCompleteAction() {
         if data.filter({ !$0.isEmpty }).count == textFieldCount {
             onCompleteCallback(data.joined(separator: ""))
         }
@@ -47,9 +49,11 @@ extension TrianglzOTPView {
 
     func getFocusedTextField() -> Int {
         let allDataIsEmpty = data.allSatisfy { $0.isEmpty }
-        
-        if allDataIsEmpty || isAllDataFull() {
-            return allDataIsEmpty ? 0 : lastIndex
+
+        if allDataIsEmpty {
+            return 0
+        } else if isAllDataFull() {
+            return lastIndex
         } else {
             return lastIndex + 1
         }

@@ -7,7 +7,7 @@ import Foundation
 import SwiftUI
 
 extension TrianglzOTPView {
-   public struct Style {
+    public struct Style {
         var foregroundColor: Color
         var fontStyle: UIFont
         var hstackSpacing: CGFloat
@@ -23,5 +23,45 @@ extension TrianglzOTPView {
         var shadowXOffset: CGFloat = 0
         var shadowYOffset: CGFloat = 0
         var isCursorHidden: Bool = false
+
+        public init() {
+            foregroundColor = .black
+            fontStyle = .systemFont(ofSize: 15)
+            hstackSpacing = 8
+            borderColor = .gray
+            backgroundColor = .white
+        }
+
+        public init(foregroundColor: Color,
+                    fontStyle: UIFont,
+                    hstackSpacing: CGFloat,
+                    hstackAlignment: VerticalAlignment = .center,
+                    borderColor: Color = .clear,
+                    width: CGFloat = 50,
+                    height: CGFloat = 50,
+                    backgroundColor: Color = .clear,
+                    cornerRadius: CGFloat = 10,
+                    borderWidth: CGFloat = 1,
+                    shadowColor: Color = .clear,
+                    shadowRadius: CGFloat = 0,
+                    shadowXOffset: CGFloat = 0,
+                    shadowYOffset: CGFloat = 0,
+                    isCursorHidden: Bool = false) {
+            self.foregroundColor = foregroundColor
+            self.fontStyle = fontStyle
+            self.hstackSpacing = hstackSpacing
+            self.hstackAlignment = hstackAlignment
+            self.borderColor = borderColor
+            self.width = width
+            self.height = height
+            self.backgroundColor = backgroundColor
+            self.cornerRadius = cornerRadius
+            self.borderWidth = borderWidth
+            self.shadowColor = shadowColor
+            self.shadowRadius = shadowRadius
+            self.shadowXOffset = shadowXOffset
+            self.shadowYOffset = shadowYOffset
+            self.isCursorHidden = isCursorHidden
+        }
     }
 }

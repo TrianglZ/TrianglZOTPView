@@ -8,20 +8,20 @@ import SwiftUI
 public struct TrianglzOTPView: View {
     
     // MARK: - Data Variables
-    internal var textFieldCount: Int
-    @State internal var data: [String] = []
-    @FocusState internal var focusedTextField: Int?
+    var textFieldCount: Int
+    @State var data: [String] = []
+    @FocusState var focusedTextField: Int?
 
-    // MARK: - Internal State Variables
-    @State internal var lastIndex: Int = 0
+    // MARK: - State Variables
+    @State var lastIndex: Int = 0
     @State private var isViewAppeared: Bool = false
 
     // MARK: - Style Variables
-    internal var customStyle: Style
+    var customStyle: Style
 
     // MARK: - Callback Closures
-    internal var onChangeCallback: ((String) -> Void)?
-    internal var onCompleteCallback: ((String) -> Void)
+    var onChangeCallback: ((String) -> Void)?
+    var onCompleteCallback: ((String) -> Void)
 
     // MARK: - Binding Variables
     @Binding var shouldDismissKeyboard: Bool
@@ -55,7 +55,8 @@ public struct TrianglzOTPView: View {
                 })
                 .customTextFieldModifier(customStyle: customStyle, index: index, focusedTextField: $focusedTextField)
             }
-        } .onAppear {
+        }.environment(\.layoutDirection, .leftToRight)
+         .onAppear {
             if !isViewAppeared {
                 setUpData()
                 isViewAppeared.toggle()
@@ -71,8 +72,10 @@ public struct TrianglzOTPView: View {
             guard let newValue else { return }
             handleOnChangeFocus(newValue: newValue)
         }.onChange(of: data, perform: { newValue in
+            onChangeCallback?(data.joined(separator: ""))
             if isAllDataFull() {
                 lastIndex = data.endIndex
+                handleOnCompleteAction()
                 focusedTextField = nil
             }
         })

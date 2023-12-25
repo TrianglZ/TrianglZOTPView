@@ -1,5 +1,5 @@
 //
-//  CustomUITextField.swift
+//  EnhancedTextField.swift
 //
 //
 
@@ -17,7 +17,8 @@ struct EnhancedTextField: UIViewRepresentable {
 
     func makeCoordinator() -> EnhancedTextFieldCoordinator {
         EnhancedTextFieldCoordinator(textBinding: $text, onChange: onChange,
-                                     data: $data, currentIndex: $currentIndex)
+                                     data: $data,
+                                     currentIndex: $currentIndex)
     }
 
     func makeUIView(context: Context) -> EnhancedUITextField {
