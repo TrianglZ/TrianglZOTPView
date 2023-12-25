@@ -40,7 +40,6 @@ extension EnhancedTextFieldCoordinator: UITextFieldDelegate {
     func setInternalData(newText: String) {
         if newText.count == 1 && !newText.isEmpty {
             internalData.wrappedValue.append(String(newText))
-            internalData.wrappedValue.removeAll { $0.isEmpty }
         }
     }
 
