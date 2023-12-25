@@ -8,6 +8,7 @@ import SwiftUI
 
 struct EnhancedTextField: UIViewRepresentable {
     @Binding var data: [String]
+    @Binding var internalData: [String]
     @Binding var currentIndex: Int
     @Binding var text: String
     let font: UIFont
@@ -18,6 +19,7 @@ struct EnhancedTextField: UIViewRepresentable {
     func makeCoordinator() -> EnhancedTextFieldCoordinator {
         EnhancedTextFieldCoordinator(textBinding: $text, onChange: onChange,
                                      data: $data,
+                                     internalData: $internalData,
                                      currentIndex: $currentIndex)
     }
 

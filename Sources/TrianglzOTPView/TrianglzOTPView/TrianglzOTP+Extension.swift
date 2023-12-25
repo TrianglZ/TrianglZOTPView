@@ -12,16 +12,47 @@ extension TrianglzOTPView {
     }
 
     func handleOnBackAction(isEmpty: Bool, index: Int) {
-        // The first condition handles the case where the user is in the first index and that index is empty to prevent exceptions. The second condition, in regular cases, deletes the value inside any non-empty index.
-        if (index == data.startIndex && data[index].isEmpty) || !isEmpty {
-            data[index] = ""
-        } else {
-            if isEmpty {
-        // "If the selected index is empty, proceed to delete the preceding index."
-                data[index - 1] = ""
+        lastIndex = data.lastIndex(where: { !$0.isEmpty }) ?? (data.isEmpty ? 0 : (data.count - 1))
+
+        if index == lastIndex {
+            // The first condition handles the case where the user is in the first index and that index is empty to prevent exceptions. The second condition, in regular cases, deletes the value inside any non-empty index.
+            if (index == data.startIndex && data[index].isEmpty) || !isEmpty {
+                data[index] = ""
+            } else {
+                if isEmpty {
+                    // "If the selected index is empty, proceed to delete the preceding index."
+                    data[index - 1] = ""
+                    if !internalData.isEmpty {
+                        internalData[index - 1] = ""
+                    }
+                }
             }
+            handleOnBackActionInternalData(index: index)
+            focusPreviousTextField(currentIndex: index)
+        } else {
+            // This condition handles scenarios when the textField is empty, and the 'Back' button is pressed.
+            // It ensures that the cursor moves to the previous text field and clears its value.
+            handleOnBackActionIfNotEmptyIndex(index: index)
         }
-        focusPreviousTextField(currentIndex: index)
+    }
+
+    private func handleOnBackActionInternalData(index: Int) {
+        if !internalData.isEmpty {
+            internalData.removeLast()
+            
+        } else if index == 0 {
+            internalData = []
+        }
+    }
+
+    private func handleOnBackActionIfNotEmptyIndex(index: Int) {
+        if index > 0 && (index <= data.count - 1) && data[index + 1].isEmpty {
+            data[index - 1] = ""
+            if (index - 1) >= internalData.startIndex && (index - 1) < internalData.endIndex {
+                internalData.remove(at: index - 1)
+            }
+            focusNextTextField(currentIndex: lastIndex - 1)
+        }
     }
 
     private func focusPreviousTextField(currentIndex: Int) {

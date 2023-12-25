@@ -10,6 +10,7 @@ public struct TrianglzOTPView: View {
     // MARK: - Data Variables
     var textFieldCount: Int
     @State var data: [String] = []
+    @State internal var internalData: [String] = []
     @FocusState var focusedTextField: Int?
 
     // MARK: - State Variables
@@ -44,6 +45,7 @@ public struct TrianglzOTPView: View {
             ForEach(data.indices, id: \.self) { index in
 
                 EnhancedTextField(data: $data,
+                                  internalData: $internalData,
                                   currentIndex: .constant(index),
                                   text: $data[index],
                                   font: customStyle.fontStyle,
