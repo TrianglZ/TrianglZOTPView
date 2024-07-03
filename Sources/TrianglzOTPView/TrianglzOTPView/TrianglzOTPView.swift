@@ -8,6 +8,7 @@ import SwiftUI
 public struct TrianglzOTPView: View {
     
     // MARK: - Data Variables
+	let keyboardType: UIKeyboardType
     var textFieldCount: Int
     @State var data: [String] = []
     @State internal var internalData: [String] = []
@@ -29,11 +30,13 @@ public struct TrianglzOTPView: View {
         
         public init(textFieldCount: Int,
                     customStyle: Style,
+					keyboardType: UIKeyboardType = .asciiCapableNumberPad,
                     onChangeCallback: ((String) -> Void)? = nil,
                     onCompleteCallback: @escaping ((String) -> Void),
                     shouldDismissKeyboard: Binding<Bool>) {
             self.textFieldCount = textFieldCount
             self.customStyle = customStyle
+			self.keyboardType = keyboardType
             self.onChangeCallback = onChangeCallback
             self.onCompleteCallback = onCompleteCallback
             _shouldDismissKeyboard = shouldDismissKeyboard
@@ -49,7 +52,8 @@ public struct TrianglzOTPView: View {
                                   currentIndex: .constant(index),
                                   text: $data[index],
                                   font: customStyle.fontStyle,
-                                  fontColor: UIColor(customStyle.foregroundColor),
+								  fontColor: UIColor(customStyle.foregroundColor),
+								  keyboardType: keyboardType,
                   onBackspace: { isEmpty in
                     handleOnBackAction(isEmpty: isEmpty, index: index)
                 },onChange: { newValue in
