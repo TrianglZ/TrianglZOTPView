@@ -50,6 +50,14 @@ public struct TrianglzOTPView: View {
 			return .alphabet
 		}
 	}
+
+	private var focusedStateFontColor: UIColor? {
+		guard let focusedStateColor = customStyle.focusedStateColor else {
+			return nil
+		}
+		return UIColor(focusedStateColor)
+	}
+
 	public var body: some View {
 		HStack(alignment: customStyle.hstackAlignment,
 			   spacing: customStyle.hstackSpacing) {
@@ -62,6 +70,7 @@ public struct TrianglzOTPView: View {
 								  font: customStyle.fontStyle,
 								  fontColor: UIColor(customStyle.foregroundColor),
 								  keyboardType: keyboardType,
+								  focusedStateFontColor: focusedStateFontColor,
 								  onBackspace: { isEmpty in
 					handleOnBackAction(isEmpty: isEmpty, index: index)
 				},onChange: { newValue in
