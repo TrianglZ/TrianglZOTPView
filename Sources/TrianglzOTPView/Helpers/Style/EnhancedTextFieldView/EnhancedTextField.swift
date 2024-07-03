@@ -13,11 +13,13 @@ struct EnhancedTextField: UIViewRepresentable {
     @Binding var text: String
     let font: UIFont
     let fontColor: UIColor
+	let keyboardType: UIKeyboardType
     let onBackspace: (Bool) -> Void
     let onChange: (String) -> Void
 
     func makeCoordinator() -> EnhancedTextFieldCoordinator {
-        EnhancedTextFieldCoordinator(textBinding: $text, onChange: onChange,
+        EnhancedTextFieldCoordinator(textBinding: $text,
+									 onChange: onChange,
                                      data: $data,
                                      internalData: $internalData,
                                      currentIndex: $currentIndex)
@@ -28,7 +30,7 @@ struct EnhancedTextField: UIViewRepresentable {
         view.delegate = context.coordinator
         view.text = text
         view.textAlignment = .center
-        view.keyboardType = .asciiCapableNumberPad
+        view.keyboardType = keyboardType
         view.font = font
         view.textColor = fontColor
         return view

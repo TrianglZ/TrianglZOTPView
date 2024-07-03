@@ -40,7 +40,8 @@ struct ContentView: View {
     let customStyle = Style(
         // Customize the appearance here
     )
-
+	// Define input Type 
+	let inputType: TrianglzOTPInputType = digits /* digits or digitsAndAlphabets */
     // Create a binding variable to dismiss the keyboard
     @State private var shouldDismissKeyboard = false
     
@@ -54,6 +55,7 @@ struct ContentView: View {
         TrianglzOTPView(
             textFieldCount: 6, // Specify the number of OTP digits
             customStyle: customStyle,
+			inputType: TrianglzOTPInputType,
             onCompleteCallback: onOTPComplete,
             shouldDismissKeyboard: $shouldDismissKeyboard
         )
