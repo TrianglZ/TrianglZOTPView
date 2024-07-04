@@ -7,17 +7,29 @@ import Foundation
 import SwiftUI
 
 extension View {
+
     func customTextFieldModifier(customStyle: TrianglzOTPView.Style,
                                  index: Int,
                                  focusedTextField: FocusState<Int?>.Binding) -> some View {
-        self
+
+		var borderColor: Color {
+			guard let focusedStateColor = customStyle.focusedStateColor else {
+				return customStyle.borderColor
+			}
+			guard focusedTextField.wrappedValue == index else {
+				return customStyle.borderColor
+			}
+			return focusedStateColor
+		}
+
+        return self
             .frame(width: customStyle.width, height: customStyle.height)
             .background(
                 RoundedRectangle(cornerRadius: customStyle.cornerRadius)
                     .foregroundColor(customStyle.backgroundColor)
                     .overlay(
                         RoundedRectangle(cornerRadius: customStyle.cornerRadius)
-                            .stroke(customStyle.borderColor, lineWidth: customStyle.borderWidth)
+                            .stroke(borderColor, lineWidth: customStyle.borderWidth)
                     )
             )
             .foregroundColor(customStyle.foregroundColor)

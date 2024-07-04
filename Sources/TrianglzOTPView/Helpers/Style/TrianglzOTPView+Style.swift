@@ -23,6 +23,7 @@ extension TrianglzOTPView {
         var shadowXOffset: CGFloat = 0
         var shadowYOffset: CGFloat = 0
         var isCursorHidden: Bool = false
+		var focusedStateColor: Color? = nil
 
         public init() {
             foregroundColor = .black
@@ -46,7 +47,8 @@ extension TrianglzOTPView {
                     shadowRadius: CGFloat = 0,
                     shadowXOffset: CGFloat = 0,
                     shadowYOffset: CGFloat = 0,
-                    isCursorHidden: Bool = false) {
+                    isCursorHidden: Bool = false,
+					focusedStateColor: Color? = nil) {
             self.foregroundColor = foregroundColor
             self.fontStyle = fontStyle
             self.hstackSpacing = hstackSpacing
@@ -62,6 +64,7 @@ extension TrianglzOTPView {
             self.shadowXOffset = shadowXOffset
             self.shadowYOffset = shadowYOffset
             self.isCursorHidden = isCursorHidden
+			self.focusedStateColor = focusedStateColor
         }
     }
 }

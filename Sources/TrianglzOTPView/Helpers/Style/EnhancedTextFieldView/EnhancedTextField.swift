@@ -14,6 +14,8 @@ struct EnhancedTextField: UIViewRepresentable {
     let font: UIFont
     let fontColor: UIColor
 	let keyboardType: UIKeyboardType
+	var focusedStateFontColor: UIColor? = nil
+
     let onBackspace: (Bool) -> Void
     let onChange: (String) -> Void
 
@@ -33,6 +35,8 @@ struct EnhancedTextField: UIViewRepresentable {
         view.keyboardType = keyboardType
         view.font = font
         view.textColor = fontColor
+		view.fontColor = fontColor
+		view.focusedStateFontColor = focusedStateFontColor
         return view
     }
 
@@ -42,6 +46,8 @@ struct EnhancedTextField: UIViewRepresentable {
     }
 
     class EnhancedUITextField: UITextField {
+		var fontColor: UIColor?
+		var focusedStateFontColor: UIColor? = nil
         var onBackspace: ((Bool) -> Void)?
 
         override init(frame: CGRect) {
@@ -57,5 +63,19 @@ struct EnhancedTextField: UIViewRepresentable {
             onBackspace?(text?.isEmpty == true)
             super.deleteBackward()
         }
+
+		override func becomeFirstResponder() -> Bool {
+			let didBecomeFirstResponder = super.becomeFirstResponder()
+			textColor = focusedStateFontColor
+			tintColor = focusedStateFontColor
+			return didBecomeFirstResponder
+		}
+
+		override func resignFirstResponder() -> Bool {
+			let didResignFirstResponder = super.resignFirstResponder()
+			textColor = fontColor
+			tintColor = fontColor
+			return didResignFirstResponder
+		}
     }
 }

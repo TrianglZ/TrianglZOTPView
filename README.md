@@ -86,7 +86,8 @@ You can customize the appearance of the OTP view by adjusting the Style struct p
                                   shadowRadius: CGFloat,
                                   shadowXOffset: CGFloat,
                                   shadowYOffset: CGFloat,
-                                  isCursorHidden: Bool)
+                                  isCursorHidden: Bool,
+								  focusedStateColor: Color? = nil)
 ```
 #### Callbacks
 TrianglzOTPView provides two callbacks:
