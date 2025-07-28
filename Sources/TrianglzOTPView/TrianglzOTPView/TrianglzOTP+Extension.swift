@@ -46,13 +46,16 @@ extension TrianglzOTPView {
     }
 
     private func handleOnBackActionIfNotEmptyIndex(index: Int) {
-        if index > 0 && (index <= data.count - 1) && data[index + 1].isEmpty {
-            data[index - 1] = ""
-            if (index - 1) >= internalData.startIndex && (index - 1) < internalData.endIndex {
-                internalData.remove(at: index - 1)
-            }
-            focusNextTextField(currentIndex: lastIndex - 1)
+        guard index > 0,
+              index < data.count,
+              (index == data.count - 1 || data[index + 1].isEmpty) else {
+            return
         }
+        data[index - 1] = ""
+        if (index - 1) >= internalData.startIndex && (index - 1) < internalData.endIndex {
+            internalData.remove(at: index - 1)
+        }
+        focusNextTextField(currentIndex: lastIndex - 1)
     }
 
     private func focusPreviousTextField(currentIndex: Int) {
