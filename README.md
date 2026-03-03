@@ -3,6 +3,10 @@
 
 OTP View with SMS Auto-Fill is a versatile user interface component designed to simplify and secure user authentication processes. It combines manual keyboard input for OTP entry with intelligent SMS detection and auto-fill functionality. Enhance your applications with this feature-rich component to provide users with a seamless, error-reducing, and convenient OTP verification experience. Boost security and user satisfaction effortlessly.
 
+# Requirements
+- iOS 15+
+- Swift 5.7+
+
 # Key Features:
 - Keyboard input for OTP entry.
 - Automatic OTP detection and population from SMS.
